@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block head_title %}Restaurants | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+{{ block.super }}
+
+<div class="container">
+    <h2 class="text-center mb-4" style="color: darkcyan; margin-top: 16px;">
+        My Restaurants 
+        <small>
+            <a href="{% url 'restaurants-create' %}" class="btn btn-outline-dark btn-sm">Add</a>
+        </small>
+    </h2>
+
+    <ul class="list-group">
+        {% for obj in object_list %}
+            <li class="list-group-item mb-3 shadow-sm">
+                <a href="{{ obj.get_absolute_url }}" style="color: darkcyan; font-weight: bold;">{{ obj.name }}</a>
+                <br>
+                <small>{{ obj.location }} | {{ obj.category }}</small>
+                <br>
+                <small class="text-muted">Created: {{ obj.timestamp }} | Updated: {{ obj.updated }}</small>
+            </li>
+        {% empty %}
+            <li class="list-group-item text-center">
+                No restaurants available. <a href="{% url 'restaurants-create' %}" style="color: darkcyan;">Add One</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock content %}

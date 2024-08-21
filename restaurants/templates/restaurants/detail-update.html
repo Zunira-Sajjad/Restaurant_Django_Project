@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+   {{ form.instance.title }} | Restaurants | {{ block.super }}
+{% endblock head_title %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-3" style="color: darkcyan;">
+        {{ form.instance.name }} 
+        <small class="text-muted">{{ form.instance.category }}</small>
+    </h2>
+    <p class="text-center mb-4">{{ form.instance.location }}</p>
+    <p class="text-center mb-4">
+        <small class="text-muted">{{ form.instance.timestamp }} , updated {{ form.instance.updated|timesince }} ago</small>
+    </p>
+    <hr/>
+
+    <h3 class="text-center" style="color: darkcyan;">Make Changes</h3>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            {% include 'snippets/form-snippet.html' with form=form %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

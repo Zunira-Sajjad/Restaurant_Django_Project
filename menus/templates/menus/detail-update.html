@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+   {{ form.instance.name }} | Menu Items | {{ block.super }}
+{% endblock head_title %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-3" style="color: darkcyan;">
+        {{ form.instance.name }}
+    </h2>
+    <p class="text-center mb-3">
+        Location: {{ form.instance.restaurant.name }}
+    </p>
+    
+    {% if form.instance.content %}
+    <div class="mb-4">
+        <h4 class="text-darkcyan">Contents</h4>
+        <ul class="list-unstyled">
+            {% for item in form.instance.get_contents %}
+            <li class="mb-2">{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    
+    {% if form.instance.excludes %}
+    <div class="mb-4">
+        <h4 class="text-darkcyan">Excludes</h4>
+        <ul class="list-unstyled">
+            {% for item in form.instance.get_excludes %}
+            <li class="mb-2">{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    
+    <hr/>
+    <h3 class="text-center" style="color: darkcyan;">Make Changes</h3>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            {% include 'snippets/form-snippet.html' with form=form %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

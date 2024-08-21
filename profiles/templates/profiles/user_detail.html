@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block head_title %}{{ user.username }} | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">{{ user.username }}</h2>
+    <form class="form-inline mb-4" method="GET" action=".">
+        <input type="text" class="form-control mr-2" placeholder="Search..." name="q" value="{{ request.GET.q }}">
+        <button class="btn btn-dark" type="submit" style="margin-top: 10px;">Search</button>
+    </form>
+    <hr/>
+    {% if location %}
+        <div class="row">
+            {% for rest in location %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ rest.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ rest.location }} | {{ rest.category }}</h6>
+                            <p class="card-text">
+                                <b>Items:</b>
+                                <ul class="list-unstyled">
+                                    {% for item in rest.item_set.all %}
+                                        <li class="mb-2">
+                                            <strong>{{ item.name }}</strong><br/>
+                                            {% for ing in item.get_contents %}
+                                                <span class="badge bg-secondary">{{ ing }}</span>
+                                            {% endfor %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="lead text-center">No items found</p>
+    {% endif %}
+</div>
+{% endblock content %}

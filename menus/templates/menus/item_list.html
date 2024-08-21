@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block head_title %}Menu Items | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+{{ block.super }}
+
+<div class="container">
+    <h2 class="text-center mb-4" style="color: darkcyan; margin-top: 16px;">
+        Menu Items 
+        <small>
+            <a href="{% url 'menus-create' %}" class="btn btn-outline-dark btn-sm">Add</a>
+        </small>
+    </h2>
+
+    <ul class="list-group">
+        {% for obj in object_list %}
+            <li class="list-group-item mb-3 shadow-sm">
+                <a href="{{ obj.get_absolute_url }}" style="color: darkcyan; font-weight: bold;">{{ obj.name }}</a>
+                <br>
+
+                {% if obj.content %}
+                    <strong>Contents:</strong>
+                    <ul class="list-unstyled">
+                        {% for item in obj.get_contents %}
+                            <li class="badge bg-dark text-white">{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if obj.excludes %}
+                    <strong>Excludes:</strong>
+                    <ul class="list-unstyled">
+                        {% for item in obj.get_excludes %}
+                            <li class="badge bg-danger text-white">{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li class="list-group-item text-center">
+                No menu items available. <a href="{% url 'menus-create' %}" style="color: darkcyan;">Add One</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock content %}

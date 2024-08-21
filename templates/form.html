@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+    {{ title }} | {{ block.super }}
+{% endblock head_title %}
+
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="text-center" style="color: darkcyan;">
+            <h2>{{ title }}</h2>
+            <div class="card p-4" style="border-color: darkcyan;">
+                {% include 'snippets/form-snippet.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

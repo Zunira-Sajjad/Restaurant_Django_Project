@@ -1,0 +1,13 @@
+{% if forms.errors.non_field_errors %}
+    <div class="alert alert-danger">
+        {{ errors }}
+    </div>
+{% endif %}
+
+<form method="POST" class="mt-2 p-2 border rounded" style="background-color: #f9f9f9; border-color: darkcyan;">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-dark mt-3">Save</button>
+</form>
